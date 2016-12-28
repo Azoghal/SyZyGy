@@ -1,1 +1,1 @@
-sheild = class('shield')
+shield = class('shield')
