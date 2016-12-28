@@ -14,18 +14,15 @@ function love.load()
 	function starMake()
 		for i=0,200,1 do
 			star = {}
-			star.x, star.y = math.random(0,600), math.random(0,800)
-		end
-		for i=0,200,1 do
-			star = {}
 			star.x, star.y = math.random(0,800), math.random(0,800)
+			star.spd = math.random(50,200,1)/100
 			table.insert(stars,star)
 		end
 	end
 
 	function StarUpd() 
 		for i,e in ipairs(stars) do
-			e.y = e.y + 1
+			e.y = e.y + e.spd
 			if e.y > 800 then
 				e.y, e.x = 0, math.random(800)
 			end
