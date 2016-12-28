@@ -13,6 +13,8 @@ function love.load()
 	stars = {}
 	bullets = {}
 	love.window.setMode( 600, 800)
+	centerx = 300
+	centery = 400
 
 	function starMake()
 		for i=0,200,1 do
@@ -35,6 +37,32 @@ function love.load()
 	function bulletmove()
 		for i,e in ipairs(bullets) do 
 			e.x,e.y = e.x + e.vx,e.y+e.vy
+			bdifx = centerx - e.x
+	        bdify = centery - e.y
+	        bcDist = math.sqrt((bdifx^2)+(bdify^2))
+	        if bcDist > 140 and bcDist < 153 and inAngle(e.x,e.y) == true then
+	        	table.remove(bullets,i)
+	        end
+		end
+		
+	end
+
+	function inAngle(x,y)
+		local angle = math.abs(math.deg(math.atan2(y - centery, x - centerx))-90)
+		if angle > shield.angle and angle < shield.angle2 then
+			return true
+		else
+			return false
+		end
+
+		if shield.angle2 - shield.angle ~= 90 then
+			if angle >= 0 and angle < shield.angle2 then
+				return true
+			elseif angle > shield.angle and  angle <= 360 then
+				return true
+			else
+				return false
+			end
 		end
 	end
 
@@ -109,9 +137,6 @@ function love.update(dt)
 end
 
 function love.draw()
-	bean = love.mouse.getPosition()
-	love.graphics.print(tostring(bean))
-	love.graphics.print(tostring(bean))
 
 	for i,e in ipairs(stars) do
 		love.graphics.circle("fill",e.x,e.y,2)
