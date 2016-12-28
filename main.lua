@@ -7,26 +7,20 @@ require 'shield'
 
 function love.load()
 	ship = shipA:new()
+	shield = shield:new()
 	stars = {}
-
-	
-
 	love.window.setMode( 600, 800)
 
 	function starMake()
-
 		for i=0,200,1 do
 			star = {}
 			star.x, star.y = math.random(0,600), math.random(0,800)
 		end
-
 		for i=0,200,1 do
 			star = {}
 			star.x, star.y = math.random(0,800), math.random(0,800)
-
 			table.insert(stars,star)
 		end
-
 	end
 
 	function StarUpd() 
@@ -44,6 +38,9 @@ end
 
 function love.update()
 	StarUpd()
+
+	shield:points()
+
 end
 
 function love.draw()
@@ -58,6 +55,8 @@ function love.draw()
 	end
 
 	love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
+
+	shield:draw()
 
 end
 
