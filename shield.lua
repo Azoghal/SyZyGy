@@ -41,21 +41,12 @@ function shield:points()
 			self.angle2 = 360
 		end 
 	end
-
-	
-	
-
 end
 
 function shield:draw()
 	love.graphics.setColor(self.colour)
 	love.graphics.circle("line",self.centerX,self.centerY,self.radius)
 	love.graphics.draw(self.deflectorIMG,self.centerX,self.centerY,-math.rad(self.angle2)+math.pi,1,1,0,150)
-	
-	
-
-	love.graphics.circle("fill",self.pointA[1],self.pointA[2],5)
-	love.graphics.circle("fill",self.pointB[1],self.pointB[2],5)
 
 	love.graphics.reset()
 

@@ -7,8 +7,10 @@ require 'shield'
 
 function love.load()
 	ship = shipA:new()
+	turret = turretA:new()
 	shield = shield:new()
 	stars = {}
+	bullets = {}
 	love.window.setMode( 600, 800)
 
 	function starMake()
@@ -31,12 +33,24 @@ function love.load()
 
 	starMake()
 
+	function bulletmove()
+		for i,e in ipairs(bullets) do 
+			e.x,e.y = e.x + e.vx,e.y+e.vy
+		end
+	end
+
 end
 
 function love.update()
 	StarUpd()
 
 	shield:points()
+
+	bulletmove()
+
+	if love.mouse.isDown(1) then
+		turret:shoot()
+	end
 
 end
 
@@ -53,7 +67,12 @@ function love.draw()
 
 	love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
 
+	for i,e in ipairs(bullets) do
+		love.graphics.circle("fill",e.x,e.y,2)
+	end
+
 	shield:draw()
+	turret:draw()
 
 end
 
