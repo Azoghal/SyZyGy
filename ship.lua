@@ -1,1 +1,7 @@
-ship1 = class('playerShip')
+shipA = class('playerShip')
+
+function shipA:initialize()
+
+	
+
+end
