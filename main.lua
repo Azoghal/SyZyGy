@@ -38,25 +38,55 @@ function love.load()
 		end
 	end
 
-	local img = love.graphics.newImage('Blue_Particle_effect.png')
+	function p()
+		local img = love.graphics.newImage('Blue_Particle_effect.png')
  
-	psystem = love.graphics.newParticleSystem(img, 32)
-	psystem:setParticleLifetime(2, 5)
-	psystem:setEmissionRate(10)
-	psystem:setSizeVariation(1)
-	psystem:setLinearAcceleration(-2, 5, 2, 20)
-	psystem:setColors(255, 255, 255, 255, 255, 255, 255, 0) 
+		psystem = love.graphics.newParticleSystem(img, 32)
+		psystem:setParticleLifetime(2, 5)
+		psystem:setEmissionRate(10)
+		psystem:setSizeVariation(1)
+		psystem:setLinearAcceleration(-2, 5, 2, 20)
+		psystem:setColors(255, 255, 255, 255, 255, 255, 255, 0) 
 
-	local img2 = love.graphics.newImage('Orange_Particle_effect.png')
- 
-	psystem2 = love.graphics.newParticleSystem(img2, 32)
-	psystem2:setParticleLifetime(2, 5)
-	psystem2:setEmissionRate(10)
-	psystem2:setSizeVariation(1)
-	psystem2:setLinearAcceleration(-2, 5, 2, 30)
-	psystem2:setColors(255, 255, 255, 255, 255, 255, 255, 0) 
+		local img2 = love.graphics.newImage('Orange_Particle_effect.png')
+	 
+		psystem2 = love.graphics.newParticleSystem(img2, 32)
+		psystem2:setParticleLifetime(2, 5)
+		psystem2:setEmissionRate(10)
+		psystem2:setSizeVariation(1)
+		psystem2:setLinearAcceleration(-2, 5, 2, 30)
+		psystem2:setColors(255, 255, 255, 255, 255, 255, 255, 0) 
+
+		psystem3 = love.graphics.newParticleSystem(img, 32)
+		psystem3:setParticleLifetime(2, 5)
+		psystem3:setEmissionRate(5)
+		psystem3:setSizeVariation(1)
+		psystem3:setLinearAcceleration(-2, 5, 2, 17)
+		psystem3:setColors(255, 255, 255, 255, 255, 255, 255, 0) 
+
+		psystem4 = love.graphics.newParticleSystem(img2, 32)
+		psystem4:setParticleLifetime(2, 4)
+		psystem4:setEmissionRate(7)
+		psystem4:setSizeVariation(1)
+		psystem4:setLinearAcceleration(-2, 5, 2, 15)
+		psystem4:setColors(255, 255, 255, 255, 255, 255, 255, 0) 
+
+	end
+	
+	function pdraw()
+		love.graphics.draw(psystem,265 ,465)
+		love.graphics.draw(psystem,335 ,465)
+		love.graphics.draw(psystem3,260 ,465)
+		love.graphics.draw(psystem3,340 ,465)
+		love.graphics.draw(psystem3,270 ,465)
+		love.graphics.draw(psystem3,330 ,465)
+		love.graphics.draw(psystem2,300,467)
+		love.graphics.draw(psystem4,295,467)
+		love.graphics.draw(psystem4,305,467)
+	end
 
 	starMake()
+	p()
 
 end
 
@@ -73,6 +103,8 @@ function love.update(dt)
 
 	psystem:update(dt)
 	psystem2:update(dt)
+	psystem3:update(dt)
+	psystem4:update(dt)
 
 end
 
@@ -92,15 +124,13 @@ function love.draw()
 
 	love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
 
-	love.graphics.draw(psystem,265 ,465)
-	love.graphics.draw(psystem,335 ,465)
-	love.graphics.draw(psystem2,300,470)
+	
 
 	for i,e in ipairs(bullets) do
 		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
 	end
 
-
+	pdraw()
 	shield:draw()
 	turret:draw()
 
