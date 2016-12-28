@@ -8,3 +8,4 @@ function shipA:initialize()
 	self.width = 100
 	self.height = 149
 end
+
