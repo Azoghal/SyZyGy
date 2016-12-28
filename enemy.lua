@@ -1,1 +1,1 @@
-enemy1 = class('enemyShip')
+enemyA = class('enemyShip')
