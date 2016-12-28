@@ -4,6 +4,5 @@ function shipA:initialize()
 	self.health = 1000
 	self.x = 300
 	self.y = 200
-	self.image = love.graphics.newImage("shipA")
-
+	self.image = love.graphics.newImage("Combat Shuttle Mk1.png")
 end
