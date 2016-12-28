@@ -50,7 +50,4 @@ function shield:draw()
 
 	love.graphics.reset()
 
-	love.graphics.print(tostring(self.angle))
-	love.graphics.print(tostring(self.angle2),0,20)
-
 end
