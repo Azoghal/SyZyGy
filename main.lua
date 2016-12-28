@@ -1,10 +1,9 @@
 class = require 'middleclass'
 
 require 'ship'
-
 require 'turret'
-
 require 'enemy'
+require 'shield'
 
 function love.load()
 end
@@ -14,3 +13,4 @@ end
 
 function love.draw()
 end
+
