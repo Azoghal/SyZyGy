@@ -6,7 +6,6 @@ require 'enemy'
 require 'shield'
 
 function love.load()
-	love.window.setMode( 600, 800)
 	ship = shipA:new()
 end
 
