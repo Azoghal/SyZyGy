@@ -51,3 +51,5 @@ function shield:draw()
 	love.graphics.reset()
 
 end
+
+-- stop own bullets if tried to shoot thru shiedl
