@@ -50,7 +50,7 @@ end
 function shield:draw()
 	love.graphics.setColor(self.colour)
 	love.graphics.circle("line",self.centerX,self.centerY,self.radius)
-	love.graphics.draw(self.deflectorIMG,self.pointB[1],self.pointB[2],-math.rad(self.angle2)+math.pi)
+	love.graphics.draw(self.deflectorIMG,self.centerX,self.centerY,-math.rad(self.angle2)+math.pi,1,1,0,150)
 	
 	
 
