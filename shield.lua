@@ -5,8 +5,8 @@ function shield:initialize()
 	self.centerX = 300
 	self.centerY = 400
 	self.colour = {0,255,255}
-	self.angle = 135
-	self.angle2 = 225
+	self.angle = 225
+	self.angle2 = 315
 	self.pointA = {}
 	self.pointB = {}
 	self.strength = 100
@@ -22,23 +22,23 @@ function shield:points()
 	self.pointB[2] = self.centerY + (math.cos((self.angle2)*math.pi/180)*self.radius)
 
 	if love.keyboard.isDown("a") then
-		self.angle = self.angle + self.rSpeed
-		self.angle2 = self.angle2 + self.rSpeed
-		if self.angle == 360 then
-			self.angle = 0
+		self.angle = self.angle - self.rSpeed
+		self.angle2 = self.angle2 - self.rSpeed
+		if self.angle < 0 then
+			self.angle = 360
 		end 
-		if self.angle2 == 360 then
-			self.angle2 = 0
+		if self.angle2 < 0 then
+			self.angle2 = 360
 		end
 	end
 	if love.keyboard.isDown("d") then
-		self.angle = self.angle - self.rSpeed
-		self.angle2 = self.angle2 - self.rSpeed
-		if self.angle == 0 then
-			self.angle = 360
+		self.angle = self.angle + self.rSpeed
+		self.angle2 = self.angle2 + self.rSpeed
+		if self.angle > 360 then
+			self.angle = 0
 		end 
-		if self.angle2 == 0 then
-			self.angle2 = 360
+		if self.angle2 > 3600 then
+			self.angle2 = 0
 		end 
 	end
 end
@@ -46,7 +46,7 @@ end
 function shield:draw()
 	love.graphics.setColor(self.colour)
 	love.graphics.circle("line",self.centerX,self.centerY,self.radius)
-	love.graphics.draw(self.deflectorIMG,self.centerX,self.centerY,-math.rad(self.angle2)+math.pi,1,1,0,150)
+	love.graphics.draw(self.deflectorIMG,self.centerX,self.centerY,math.rad(self.angle2),1,1,0,150)
 
 	love.graphics.reset()
 

@@ -21,6 +21,7 @@ function turretA:shoot()
 	bullet = {}
 	bullet.image = love.graphics.newImage("laser1.png")
 	bullet.anger = self.anger+(0.5*math.pi)
+	bullet.angle = 0
 	bullet.x,bullet.y = self.x,self.y
 	bullet.vx, bullet.vy = math.cos(self.anger)*10, math.sin(self.anger)*10
 	self.cd = 100

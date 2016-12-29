@@ -39,30 +39,18 @@ function love.load()
 			e.x,e.y = e.x + e.vx,e.y+e.vy
 			bdifx = centerx - e.x
 	        bdify = centery - e.y
-	        bcDist = math.sqrt((bdifx^2)+(bdify^2))
-	        if bcDist > 140 and bcDist < 153 and inAngle(e.x,e.y) == true then
+	        bcDist = math.sqrt((bdifx^2)+(bdify^2)) 
+	        bullet.angle = math.atan2(bullet.y - centery, bullet.x - centerx)
+	        if bcDist > 140 and bcDist < 153 and inAngle(bullet.angle) == true then
 	        	table.remove(bullets,i)
 	        end
 		end
 		
 	end
 
-	function inAngle(x,y)
-		local angle = math.abs(math.deg(math.atan2(y - centery, x - centerx))-90)
+	function inAngle(angle)
 		if angle > shield.angle and angle < shield.angle2 then
 			return true
-		else
-			return false
-		end
-
-		if shield.angle2 - shield.angle ~= 90 then
-			if angle >= 0 and angle < shield.angle2 then
-				return true
-			elseif angle > shield.angle and  angle <= 360 then
-				return true
-			else
-				return false
-			end
 		end
 	end
 
