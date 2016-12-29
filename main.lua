@@ -12,8 +12,8 @@ function love.load()
 	bullets = {}
 	width,height = love.window.getDesktopDimensions(1)
 	love.window.setMode(width,height,{fullscreen=true})
-	centerx = 960
-	centery = 540
+	centerx = width/2
+	centery = height/2
 	bulletInfo = {}
 
 	ship = shipA:new()
@@ -103,17 +103,19 @@ function love.load()
 		psystem4:setColors(255, 255, 255, 255, 255, 255, 255, 0) 
 
 	end
+
+	width2,height2 = width/2,height/2
 	
 	function pdraw()
-		love.graphics.draw(psystem,265+660,465+140)
-		love.graphics.draw(psystem,335+660,465+140)
-		love.graphics.draw(psystem3,260+660,465+140)
-		love.graphics.draw(psystem3,340+660,465+140)
-		love.graphics.draw(psystem3,270+660,465+140)
-		love.graphics.draw(psystem3,330+660,465+140)
-		love.graphics.draw(psystem2,300+660,467+140)
-		love.graphics.draw(psystem4,295+660,467+140)
-		love.graphics.draw(psystem4,305+660,467+140)
+		love.graphics.draw(psystem, width2-35,height2+65)  -- centery = 540 centerx = 960   -35,+65
+		love.graphics.draw(psystem, width2+35,height2+65)		-- +35,+65
+		love.graphics.draw(psystem3,width2-40,height2+65)	-- -40,+65
+		love.graphics.draw(psystem3,width2+40,height2+65)	-- +40,+65
+		love.graphics.draw(psystem3,width2-30,height2+65)	-- -30,+65
+		love.graphics.draw(psystem3,width2+30,height2+65)	-- +30,+65
+		love.graphics.draw(psystem2,width2   ,height2+67)	-- +0,+67
+		love.graphics.draw(psystem4,width2-5 ,height2+67)	-- -5,+67
+		love.graphics.draw(psystem4,width2+5 ,height2+67)	-- +5,+67
 	end
 
 	starMake()
