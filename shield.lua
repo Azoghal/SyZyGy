@@ -2,8 +2,8 @@ shield = class('shield2')
 
 function shield:initialize()
 	self.radius = 150
-	self.centerX = 300
-	self.centerY = 400
+	self.centerX = 960
+	self.centerY = 540
 	self.colour = {0,255,255}
 	self.angle = 225
 	self.angle2 = 315

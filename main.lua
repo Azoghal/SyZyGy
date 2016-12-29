@@ -12,15 +12,15 @@ function love.load()
 	shield = shield:new()
 	stars = {}
 	bullets = {}
-	love.window.setMode( 600, 800)
-	centerx = 300
-	centery = 400
+	love.window.setMode( 1920, 1080)
+	centerx = 960
+	centery = 540
 	bulletInfo = {}
 
 	function starMake()
-		for i=0,200,1 do
+		for i=0,500,1 do
 			star = {}
-			star.x, star.y = math.random(0,800), math.random(0,800)
+			star.x, star.y = math.random(0,1920), math.random(0,1080)
 			star.spd = math.random(50,200,1)/100
 			table.insert(stars,star)
 		end
@@ -29,8 +29,8 @@ function love.load()
 	function StarUpd() 
 		for i,e in ipairs(stars) do
 			e.y = e.y + e.spd
-			if e.y > 800 then
-				e.y, e.x = 0, math.random(800)
+			if e.y > 1080 then
+				e.y, e.x = 0, math.random(1920)
 			end
 		end
 	end
@@ -100,15 +100,15 @@ function love.load()
 	end
 	
 	function pdraw()
-		love.graphics.draw(psystem,265 ,465)
-		love.graphics.draw(psystem,335 ,465)
-		love.graphics.draw(psystem3,260 ,465)
-		love.graphics.draw(psystem3,340 ,465)
-		love.graphics.draw(psystem3,270 ,465)
-		love.graphics.draw(psystem3,330 ,465)
-		love.graphics.draw(psystem2,300,467)
-		love.graphics.draw(psystem4,295,467)
-		love.graphics.draw(psystem4,305,467)
+		love.graphics.draw(psystem,265+660,465+140)
+		love.graphics.draw(psystem,335+660,465+140)
+		love.graphics.draw(psystem3,260+660,465+140)
+		love.graphics.draw(psystem3,340+660,465+140)
+		love.graphics.draw(psystem3,270+660,465+140)
+		love.graphics.draw(psystem3,330+660,465+140)
+		love.graphics.draw(psystem2,300+660,467+140)
+		love.graphics.draw(psystem4,295+660,467+140)
+		love.graphics.draw(psystem4,305+660,467+140)
 	end
 
 	starMake()
@@ -117,6 +117,9 @@ function love.load()
 end
 
 function love.update(dt)
+	if love.keyboard.isDown("escape") then
+		love.event.quit()
+	end
 	StarUpd()
 
 	shield:points()
@@ -140,7 +143,6 @@ function love.draw()
 		love.graphics.circle("fill",e.x,e.y,2)
 	end
 
-
 	for i,e in ipairs(stars) do
 		love.graphics.circle("fill",e.x,e.y,2)
 	end
@@ -153,9 +155,6 @@ function love.draw()
 		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
 	end
 
-	love.graphics.print(tostring(bulletInfo[1]))
-	love.graphics.print(tostring(shield.angle),0,20)
-	love.graphics.print(tostring(shield.angle2),0,40)
 
 	pdraw()
 	shield:draw()
