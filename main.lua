@@ -12,7 +12,7 @@ function love.load()
 	shield = shield:new()
 	stars = {}
 	bullets = {}
-	love.window.setMode( 1920, 1080)
+	love.window.setMode( 1920, 1080,{fullscreen=true})
 	centerx = 960
 	centery = 540
 	bulletInfo = {}
@@ -22,6 +22,8 @@ function love.load()
 			star = {}
 			star.x, star.y = math.random(0,1920), math.random(0,1080)
 			star.spd = math.random(50,200,1)/100
+			star.sz = star.spd
+			star.color = {math.random(150,255),math.random(200,255),math.random(150,255)}
 			table.insert(stars,star)
 		end
 	end
@@ -144,7 +146,9 @@ function love.draw()
 	end
 
 	for i,e in ipairs(stars) do
-		love.graphics.circle("fill",e.x,e.y,2)
+		love.graphics.setColor(e.color)
+		love.graphics.circle("fill",e.x,e.y,e.sz)
+		love.graphics.reset()
 	end
 
 	love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
