@@ -4,7 +4,7 @@ function shield:initialize()
 	self.radius = 150
 	self.centerX = 960
 	self.centerY = 540
-	self.colour = {0,105,167,226}
+	self.colour = {0,135,200,226}
 	self.angle = 225
 	self.angle2 = 315
 	self.pointA = {}
