@@ -12,7 +12,8 @@ function love.load()
 	shield = shield:new()
 	stars = {}
 	bullets = {}
-	love.window.setMode( 1920, 1080,{fullscreen=true})
+	width,height = love.window.getDesktopDimensions(1)
+	love.window.setMode(width,height,{fullscreen=true})
 	centerx = 960
 	centery = 540
 	bulletInfo = {}
