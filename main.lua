@@ -7,9 +7,7 @@ require 'shield'
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest','nearest')
-	ship = shipA:new()
-	turret = turretA:new()
-	shield = shield:new()
+	
 	stars = {}
 	bullets = {}
 	width,height = love.window.getDesktopDimensions(1)
@@ -18,10 +16,14 @@ function love.load()
 	centery = 540
 	bulletInfo = {}
 
+	ship = shipA:new()
+	turret = turretA:new()
+	shield = shield:new()
+
 	function starMake()
 		for i=0,500,1 do
 			star = {}
-			star.x, star.y = math.random(0,1920), math.random(0,1080)
+			star.x, star.y = math.random(0,width), math.random(0,height)
 			star.spd = math.random(50,200,1)/100
 			star.sz = star.spd
 			star.color = {math.random(150,255),math.random(200,255),math.random(150,255)}
@@ -32,8 +34,8 @@ function love.load()
 	function StarUpd() 
 		for i,e in ipairs(stars) do
 			e.y = e.y + e.spd
-			if e.y > 1080 then
-				e.y, e.x = 0, math.random(1920)
+			if e.y > height then
+				e.y, e.x = 0, math.random(width)
 			end
 		end
 	end
