@@ -113,9 +113,9 @@ function love.load()
 		love.graphics.draw(psystem3,width2+40,height2+65)	-- +40,+65
 		love.graphics.draw(psystem3,width2-30,height2+65)	-- -30,+65
 		love.graphics.draw(psystem3,width2+30,height2+65)	-- +30,+65
-		love.graphics.draw(psystem2,width2   ,height2+67)	-- +0,+67
-		love.graphics.draw(psystem4,width2-5 ,height2+67)	-- -5,+67
-		love.graphics.draw(psystem4,width2+5 ,height2+67)	-- +5,+67
+		love.graphics.draw(psystem2,width2   ,height2+68)	-- +0,+67
+		love.graphics.draw(psystem4,width2-5 ,height2+68)	-- -5,+67
+		love.graphics.draw(psystem4,width2+5 ,height2+68)	-- +5,+67
 	end
 
 	starMake()
