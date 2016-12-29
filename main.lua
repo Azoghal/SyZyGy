@@ -15,6 +15,7 @@ function love.load()
 	love.window.setMode( 600, 800)
 	centerx = 300
 	centery = 400
+	bulletInfo = {}
 
 	function starMake()
 		for i=0,200,1 do
@@ -40,7 +41,11 @@ function love.load()
 			bdifx = centerx - e.x
 	        bdify = centery - e.y
 	        bcDist = math.sqrt((bdifx^2)+(bdify^2)) 
-	        bullet.angle = math.atan2(bullet.y - centery, bullet.x - centerx)
+	        bullet.angle = ((math.atan2(bullet.y - centery, bullet.x - centerx)*180)/math.pi)
+	        if bullet.angle < 0 then
+	        	bullet.angle = (180+bullet.angle)+180
+	        end
+	        bulletInfo[1] = bullet.angle
 	        if bcDist > 140 and bcDist < 153 and inAngle(bullet.angle) == true then
 	        	table.remove(bullets,i)
 	        end
@@ -51,6 +56,11 @@ function love.load()
 	function inAngle(angle)
 		if angle > shield.angle and angle < shield.angle2 then
 			return true
+		end
+		if shield.angle - shield.angle2 ~= -90 then
+			if (angle > shield.angle and angle < 360) or (angle > 0 and angle < shield.angle2) then
+				return true
+			end
 		end
 	end
 
@@ -142,6 +152,10 @@ function love.draw()
 	for i,e in ipairs(bullets) do
 		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
 	end
+
+	love.graphics.print(tostring(bulletInfo[1]))
+	love.graphics.print(tostring(shield.angle),0,20)
+	love.graphics.print(tostring(shield.angle2),0,40)
 
 	pdraw()
 	shield:draw()

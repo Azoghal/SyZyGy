@@ -5,8 +5,8 @@ function shield:initialize()
 	self.centerX = 300
 	self.centerY = 400
 	self.colour = {0,255,255}
-	self.angle = 225
-	self.angle2 = 315
+	self.angle = 0
+	self.angle2 = 90
 	self.pointA = {}
 	self.pointB = {}
 	self.strength = 100
@@ -37,7 +37,7 @@ function shield:points()
 		if self.angle > 360 then
 			self.angle = 0
 		end 
-		if self.angle2 > 3600 then
+		if self.angle2 > 360 then
 			self.angle2 = 0
 		end 
 	end
