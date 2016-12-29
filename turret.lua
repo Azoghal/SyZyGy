@@ -3,7 +3,8 @@ turretA = class('playerTurret')
 function turretA:initialize()
 	self.x = ship.x
 	self.y = ship.y - 9
-	self.image = love.graphics.newImage("STurret1.png")
+	self.image = love.graphics.newImage("Laser Turret.png")
+	self.image2 = love.graphics.newImage("Laser Turret Base.png")
 	self.anger = 0
 	self.cd = 0
 end
@@ -11,7 +12,8 @@ end
 function turretA:draw()
 	mx,my = love.mouse.getPosition()
 	self.anger = math.atan2(self.y - my, self.x - mx)
-	love.graphics.draw(self.image,self.x,self.y,self.anger+math.pi,1,1,20,25)
+	love.graphics.draw(self.image2,self.x,self.y,0,1,1,25,28)
+	love.graphics.draw(self.image,self.x+1,self.y-2,self.anger+1.5*math.pi,1,1,20,32)
 	self.cd = self.cd -1
 end
 

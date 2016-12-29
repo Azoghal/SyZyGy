@@ -5,8 +5,8 @@ function shield:initialize()
 	self.centerX = 300
 	self.centerY = 400
 	self.colour = {0,255,255}
-	self.angle = 0
-	self.angle2 = 90
+	self.angle = 225
+	self.angle2 = 315
 	self.pointA = {}
 	self.pointB = {}
 	self.strength = 100
