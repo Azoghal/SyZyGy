@@ -160,6 +160,9 @@ function love.draw()
 		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
 	end
 
+	love.graphics.print(tostring(width))
+
+	love.graphics.print(tostring(height),0,20)
 
 	pdraw()
 	shield:draw()
