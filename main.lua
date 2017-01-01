@@ -8,17 +8,44 @@ require 'shield'
 function love.load()
 	love.graphics.setDefaultFilter('nearest','nearest')
 	
+	enemies = {}
+	ecd = 50
 	stars = {}
 	bullets = {}
 	width,height = love.window.getDesktopDimensions(1)
-	love.window.setMode(width,height,{fullscreen=true})
+	love.window.setMode(width,height,{fullscreen=true}) 
 	centerx = width/2
 	centery = height/2
+	width2,height2 = width/2,height/2
 	bulletInfo = {}
 
+	function enemyCleanup()
+		for i,e in ipairs(enemies) do 
+			if e.health <= 0 then
+				table.remove(enemies,i)
+			end
+		end
+	end
+
+	function bulletCleanup() 
+		for i,e in ipairs(bullets) do
+			edfx = centerx - e.x
+	        edfy = centery - e.y
+	        edist = math.sqrt((edfx^2)+(edfy^2)) 
+		end
+	end
+	function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
+	  return x1 < x2+w2 and
+	         x2 < x1+w1 and
+	         y1 < y2+h2 and
+	         y2 < y1+h1
+	end
+	math.randomseed(os.clock())
+	
 	ship = shipA:new()
 	turret = turretA:new()
 	shield = shield:new()
+	enemy = enemyA:new()
 
 	function starMake()
 		for i=0,500,1 do
@@ -104,7 +131,7 @@ function love.load()
 
 	end
 
-	width2,height2 = width/2,height/2
+	
 	
 	function pdraw()
 		love.graphics.draw(psystem, width2-35,height2+65)  -- centery = 540 centerx = 960   -35,+65
@@ -113,9 +140,9 @@ function love.load()
 		love.graphics.draw(psystem3,width2+40,height2+65)	-- +40,+65
 		love.graphics.draw(psystem3,width2-30,height2+65)	-- -30,+65
 		love.graphics.draw(psystem3,width2+30,height2+65)	-- +30,+65
-		love.graphics.draw(psystem2,width2   ,height2+68)	-- +0,+67
-		love.graphics.draw(psystem4,width2-5 ,height2+68)	-- -5,+67
-		love.graphics.draw(psystem4,width2+5 ,height2+68)	-- +5,+67
+		love.graphics.draw(psystem2,width2   ,height2+67)	-- +0,+67
+		love.graphics.draw(psystem4,width2-5 ,height2+67)	-- -5,+67
+		love.graphics.draw(psystem4,width2+5 ,height2+67)	-- +5,+67
 	end
 
 	starMake()
@@ -124,13 +151,22 @@ function love.load()
 end
 
 function love.update(dt)
+	enemyCleanup()
+	bulletCleanup()
+	ecd = ecd -1
+	if love.keyboard.isDown("o") and ecd < 0 then
+		local enemy = enemyA:new()
+		ecd = 50
+	end
 	if love.keyboard.isDown("escape") then
 		love.event.quit()
 	end
 	StarUpd()
+	if love.keyboard.isDown("r") then 
+		randomPrint(math.random(0,8))
+	end
 
 	shield:points()
-
 	bulletmove()
 
 	if love.mouse.isDown(1) and turret.cd <= 0 then
@@ -141,6 +177,13 @@ function love.update(dt)
 	psystem2:update(dt)
 	psystem3:update(dt)
 	psystem4:update(dt)
+	
+	for i,e in ipairs(enemies) do
+		e:ambientMove()
+		e:enemyMove()
+		e:recieveDamage()
+	end
+
 
 end
 
@@ -149,7 +192,7 @@ function love.draw()
 	for i,e in ipairs(stars) do
 		love.graphics.circle("fill",e.x,e.y,2)
 	end
-
+	
 	for i,e in ipairs(stars) do
 		love.graphics.setColor(e.color)
 		love.graphics.circle("fill",e.x,e.y,e.sz)
@@ -157,8 +200,6 @@ function love.draw()
 	end
 
 	love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
-
-	
 
 	for i,e in ipairs(bullets) do
 		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
@@ -171,6 +212,7 @@ function love.draw()
 	pdraw()
 	shield:draw()
 	turret:draw()
-
+	for i,e in ipairs(enemies) do
+		e:draw()
+	end
 end
-
