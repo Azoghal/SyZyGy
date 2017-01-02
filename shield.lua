@@ -4,7 +4,8 @@ function shield:initialize()
 	self.radius = 150
 	self.centerX = width/2
 	self.centerY = height/2
-	self.colour = {0,135,200,226}
+	self.secShield = 100
+	
 	self.angle = 225
 	self.angle2 = 315
 	self.pointA = {}
@@ -16,6 +17,10 @@ function shield:initialize()
 end
 
 function shield:points()
+	if self.secShield > 255 then
+		self.secShield = 255
+	end
+	self.colour = {0,135,200,self.secShield}
 	self.pointA[1] = self.centerX + (math.sin((self.angle)*math.pi/180)*self.radius)
 	self.pointA[2] = self.centerY + (math.cos((self.angle)*math.pi/180)*self.radius)
 	self.pointB[1] = self.centerX + (math.sin((self.angle2)*math.pi/180)*self.radius)
@@ -46,6 +51,7 @@ end
 function shield:draw()
 	love.graphics.setColor(self.colour)
 	love.graphics.circle("line",self.centerX,self.centerY,self.radius)
+	love.graphics.reset()
 	love.graphics.draw(self.deflectorIMG,self.centerX,self.centerY,math.rad(self.angle2),1,1,0,150)
 
 	love.graphics.reset()

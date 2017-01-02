@@ -4,6 +4,7 @@ require 'ship'
 require 'turret'
 require 'enemy'
 require 'shield'
+require 'enemyTurret'
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest','nearest')
@@ -12,8 +13,10 @@ function love.load()
 	ecd = 50
 	stars = {}
 	bullets = {}
+	ebullets = {}
+	eTurrets= {}
 	width,height = love.window.getDesktopDimensions(1)
-	love.window.setMode(width,height,{fullscreen=true}) 
+	love.window.setMode(width,height)  -- {fullscreen=true}
 	centerx = width/2
 	centery = height/2
 	width2,height2 = width/2,height/2
@@ -46,6 +49,7 @@ function love.load()
 	turret = turretA:new()
 	shield = shield:new()
 	enemy = enemyA:new()
+	eney  = enemyTurretA:new(enemy.x,enemy.y,enemy)
 
 	function starMake()
 		for i=0,500,1 do
@@ -73,13 +77,31 @@ function love.load()
 			bdifx = centerx - e.x
 	        bdify = centery - e.y
 	        bcDist = math.sqrt((bdifx^2)+(bdify^2)) 
-	        bullet.angle = ((math.atan2(bullet.y - centery, bullet.x - centerx)*180)/math.pi)
-	        if bullet.angle < 0 then
-	        	bullet.angle = (180+bullet.angle)+180
+	        e.angle = ((math.atan2(e.y - centery, e.x - centerx)*180)/math.pi)
+	        if e.angle < 0 then
+	        	e.angle = (180+e.angle)+180
 	        end
-	        bulletInfo[1] = bullet.angle
-	        if bcDist > 140 and bcDist < 153 and inAngle(bullet.angle) == true then
+	        bulletInfo[1] = e.angle
+	        if bcDist > 140 and bcDist < 153 and inAngle(e.angle) == true then
 	        	table.remove(bullets,i)
+	        end
+		end
+		for i,e in ipairs(ebullets) do 
+			e.x,e.y = e.x + e.vx,e.y+e.vy
+			bdifx = centerx - e.x
+	        bdify = centery - e.y
+	        bcDist = math.sqrt((bdifx^2)+(bdify^2)) 
+	        e.angle = ((math.atan2(e.y - centery, e.x - centerx)*180)/math.pi)
+	        if e.angle < 0 then
+	        	e.angle = (180+e.angle)+180
+	        end
+	        bulletInfo[1] = e.angle
+	        if bcDist > 145 and bcDist < 155 and inAngle(e.angle) == true then
+	        	table.remove(ebullets,i)
+	        	shield.secShield = shield.secShield + e.damage
+	        elseif shield.secShield > 0 and bcDist > 145 and bcDist < 155 then
+	        	table.remove(ebullets,i)
+	        	shield.secShield = shield.secShield - e.damage/2
 	        end
 		end
 		
@@ -156,7 +178,15 @@ function love.update(dt)
 	ecd = ecd -1
 	if love.keyboard.isDown("o") and ecd < 0 then
 		local enemy = enemyA:new()
+		local turret = enemyTurretA:new(enemy.x+50,enemy.y+84,enemy)
 		ecd = 50
+	end
+	for i,e in ipairs(eTurrets) do
+		if e.cd <= 0 then
+			e:shoot()
+		end
+		e:draw()
+		
 	end
 	if love.keyboard.isDown("escape") then
 		love.event.quit()
@@ -189,30 +219,27 @@ end
 
 function love.draw()
 
-	for i,e in ipairs(stars) do
-		love.graphics.circle("fill",e.x,e.y,2)
-	end
 	
 	for i,e in ipairs(stars) do
 		love.graphics.setColor(e.color)
 		love.graphics.circle("fill",e.x,e.y,e.sz)
 		love.graphics.reset()
 	end
-
-	love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
-
-	for i,e in ipairs(bullets) do
-		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
-	end
-
-	love.graphics.print(tostring(width))
-
-	love.graphics.print(tostring(height),0,20)
-
-	pdraw()
-	shield:draw()
-	turret:draw()
 	for i,e in ipairs(enemies) do
 		e:draw()
 	end
+	for i,e in ipairs(ebullets) do
+		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
+	end
+	for i,e in ipairs(eTurrets) do
+		e:draw()
+	end
+
+	love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
+	for i,e in ipairs(bullets) do
+		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
+	end
+	turret:draw()
+	pdraw()
+	shield:draw()
 end
