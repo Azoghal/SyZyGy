@@ -1,4 +1,7 @@
+enemyTypes = {}
 enemyA = class('enemyShip')
+
+
 
 function enemyA:initialize()
 	self.image = love.graphics.newImage("Enemy Combat Shuttle.png")
@@ -99,4 +102,5 @@ function enemyA:draw()
 	love.graphics.print(tostring(self.health),self.x,self.y)
 end
 
+enemyTypes[1] = enemyA
 --draws enemy ship

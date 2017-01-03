@@ -4,7 +4,7 @@ function shield:initialize()
 	self.radius = 150
 	self.centerX = width/2
 	self.centerY = height/2
-	self.secShield = 100
+	self.secShield = 50
 	
 	self.angle = 225
 	self.angle2 = 315

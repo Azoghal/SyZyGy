@@ -9,3 +9,4 @@ function shipA:initialize()
 	self.height = 149
 end
 
+

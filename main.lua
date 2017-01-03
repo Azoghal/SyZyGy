@@ -99,7 +99,7 @@ function love.load()
 	        	shield.secShield = shield.secShield + e.damage
 	        elseif shield.secShield > 0 and bcDist > 145 and bcDist < 155 then
 	        	table.remove(ebullets,i)
-	        	shield.secShield = shield.secShield - e.damage/2
+	        	shield.secShield = shield.secShield - e.damage
 	        end
 		end
 		
@@ -178,9 +178,10 @@ function love.update(dt)
 		bean = journeyA:new()
 		journeyOn = true
 	end
-	if journeyOn == true then
-		bean:runjourney()
+	if journeyOn then
+		bean:runJourney()
 	end
+	
 	for i,e in ipairs(eTurrets) do
 		if e.cd <= 0 then
 			e:shoot()
@@ -244,5 +245,7 @@ function love.draw()
 		turret:draw()
 		pdraw()
 		shield:draw()
+		love.graphics.print(tostring(shield.secShield))
 	end
+
 end

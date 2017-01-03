@@ -1,7 +1,6 @@
 enemyTurretA = class('enemyTurret')
-enemyTypes = {}
 
-function enemyTurretA:initialize(x,y,parent)
+function enemyTurretA:initialize(parent)
 	self.x = y
 	self.y = x
 	self.image = love.graphics.newImage("Laser Turret.png")
@@ -45,4 +44,3 @@ function enemyTurretA:shoot()
 	table.insert(ebullets,bullet)
 end
 
-enemyTypes[1] = enemyTurretA
