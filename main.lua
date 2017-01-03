@@ -5,6 +5,7 @@ require 'turret'
 require 'enemy'
 require 'shield'
 require 'enemyTurret'
+require 'journeys'
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest','nearest')
@@ -16,11 +17,12 @@ function love.load()
 	ebullets = {}
 	eTurrets= {}
 	width,height = love.window.getDesktopDimensions(1)
-	love.window.setMode(width,height)  -- {fullscreen=true}
+	love.window.setMode(width,height,{fullscreen=true})  -- 
 	centerx = width/2
 	centery = height/2
 	width2,height2 = width/2,height/2
 	bulletInfo = {}
+	journeyOn = false
 
 	function enemyCleanup()
 		for i,e in ipairs(enemies) do 
@@ -45,11 +47,7 @@ function love.load()
 	end
 	math.randomseed(os.clock())
 	
-	ship = shipA:new()
-	turret = turretA:new()
-	shield = shield:new()
-	enemy = enemyA:new()
-	eney  = enemyTurretA:new(enemy.x,enemy.y,enemy)
+	
 
 	function starMake()
 		for i=0,500,1 do
@@ -176,10 +174,12 @@ function love.update(dt)
 	enemyCleanup()
 	bulletCleanup()
 	ecd = ecd -1
-	if love.keyboard.isDown("o") and ecd < 0 then
-		local enemy = enemyA:new()
-		local turret = enemyTurretA:new(enemy.x+50,enemy.y+84,enemy)
-		ecd = 50
+	if love.keyboard.isDown("o") and journeyOn == false then
+		bean = journeyA:new()
+		journeyOn = true
+	end
+	if journeyOn == true then
+		bean:runjourney()
 	end
 	for i,e in ipairs(eTurrets) do
 		if e.cd <= 0 then
@@ -195,13 +195,15 @@ function love.update(dt)
 	if love.keyboard.isDown("r") then 
 		randomPrint(math.random(0,8))
 	end
-
-	shield:points()
+	if journeyOn == true then
+		shield:points()
+		if love.mouse.isDown(1) and turret.cd <= 0 then
+			turret:shoot()
+		end
+	end
 	bulletmove()
 
-	if love.mouse.isDown(1) and turret.cd <= 0 then
-		turret:shoot()
-	end
+	
 
 	psystem:update(dt)
 	psystem2:update(dt)
@@ -234,12 +236,13 @@ function love.draw()
 	for i,e in ipairs(eTurrets) do
 		e:draw()
 	end
-
-	love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
-	for i,e in ipairs(bullets) do
-		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
+	if journeyOn == true then
+		love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
+		for i,e in ipairs(bullets) do
+			love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
+		end
+		turret:draw()
+		pdraw()
+		shield:draw()
 	end
-	turret:draw()
-	pdraw()
-	shield:draw()
 end

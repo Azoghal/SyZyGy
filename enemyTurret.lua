@@ -1,4 +1,5 @@
 enemyTurretA = class('enemyTurret')
+enemyTypes = {}
 
 function enemyTurretA:initialize(x,y,parent)
 	self.x = y
@@ -20,8 +21,10 @@ function enemyTurretA:draw()
 		end
 	end
 	self.x,self.y = self.parent.x+50,self.parent.y+50
-	mx, my = ship.x,ship.y
-	self.anger = math.atan2(self.y - my, self.x - mx)
+	if ship then
+		mx, my = ship.x,ship.y
+		self.anger = math.atan2(self.y - my, self.x - mx)
+	end
 	love.graphics.draw(self.image2,self.x,self.y,0,1,1,25,28)
 	love.graphics.draw(self.image,self.x+1,self.y-2,self.anger+1.5*math.pi,1,1,20,32)
 	self.cd = self.cd -1
@@ -42,3 +45,4 @@ function enemyTurretA:shoot()
 	table.insert(ebullets,bullet)
 end
 
+enemyTypes[1] = enemyTurretA
