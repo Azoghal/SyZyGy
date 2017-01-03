@@ -36,7 +36,7 @@ function enemyA:initialize()
 	self.CD = 10
 	if self.xFinal < width2 then
 		self.xSide = -1
-		self.x, self.y = -50,height2 -- left
+		self.x, self.y = -100,height2 -- left
 	elseif self.xFinal > width2 then 
 		self.xSide = 1
 		self.x, self.y = width+50,height2 -- right s

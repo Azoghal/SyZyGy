@@ -23,6 +23,7 @@ function love.load()
 	width2,height2 = width/2,height/2
 	bulletInfo = {}
 	journeyOn = false
+	joI = 1
 
 	function enemyCleanup()
 		for i,e in ipairs(enemies) do 
@@ -238,6 +239,7 @@ function love.draw()
 		e:draw()
 	end
 	if journeyOn == true then
+		love.graphics.print(tostring(bean.hTimer))
 		love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
 		for i,e in ipairs(bullets) do
 			love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
@@ -245,7 +247,6 @@ function love.draw()
 		turret:draw()
 		pdraw()
 		shield:draw()
-		love.graphics.print(tostring(shield.secShield))
 	end
 
 end
