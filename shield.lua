@@ -4,13 +4,12 @@ function shield:initialize()
 	self.radius = 150
 	self.centerX = width/2
 	self.centerY = height/2
-	self.secShield = 50
+	self.secShield = 100
 	
 	self.angle = 225
 	self.angle2 = 315
 	self.pointA = {}
 	self.pointB = {}
-	self.strength = 100
 	self.AngleDif = 90
 	self.rSpeed = 1
 	self.deflectorIMG = love.graphics.newImage("deflector.png")

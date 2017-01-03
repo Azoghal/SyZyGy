@@ -4,7 +4,7 @@ enemyA = class('enemyShip')
 
 
 function enemyA:initialize()
-	self.image = love.graphics.newImage("Enemy Combat Shuttle.png")
+	self.image = love.graphics.newImage("Police Combat Shuttle Sams Recolour.png")
 	self.health = 100
 	self.spawnbool2 = false
 	self.spawnbool = false
@@ -74,7 +74,7 @@ end
 
 function enemyA:recieveDamage()
 	for i,e in ipairs(bullets) do 
-		if CheckCollision(e.x,e.y,1,1,self.x,self.y,100,150) == true then
+		if CheckCollision(e.x,e.y,1,1,self.x,self.y,100,90) == true then
 			self.health = self.health - e.damage
 			table.remove(bullets,i)
 		end
@@ -98,8 +98,7 @@ function enemyA:ambientMove()
 end
 
 function enemyA:draw()
-	love.graphics.draw(self.image,self.x,self.y,0,1,1,50,25)
-	love.graphics.print(tostring(self.health),self.x,self.y)
+	love.graphics.draw(self.image,self.x,self.y,0,1,1,59,38)
 end
 
 enemyTypes[1] = enemyA

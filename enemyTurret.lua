@@ -19,13 +19,13 @@ function enemyTurretA:draw()
 			end
 		end
 	end
-	self.x,self.y = self.parent.x+50,self.parent.y+50
+	self.x,self.y = self.parent.x+70,self.parent.y+67
 	if ship then
 		mx, my = ship.x,ship.y
 		self.anger = math.atan2(self.y - my, self.x - mx)
 	end
-	love.graphics.draw(self.image2,self.x,self.y,0,1,1,25,28)
-	love.graphics.draw(self.image,self.x+1,self.y-2,self.anger+1.5*math.pi,1,1,20,32)
+	love.graphics.draw(self.image2,self.x,self.y,0,0.5,0.5,25,28)
+	love.graphics.draw(self.image,self.x+1,self.y-2,self.anger+1.5*math.pi,0.5,0.5,20,32)
 	self.cd = self.cd -1
 end
 

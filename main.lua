@@ -10,6 +10,8 @@ require 'menu'
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest','nearest')
+	cursor = love.mouse.newCursor("Syzygy cursor.png")
+	love.mouse.setCursor(cursor)
 	
 	enemies = {}
 	ecd = 50
@@ -99,7 +101,7 @@ function love.load()
 	        bulletInfo[1] = e.angle
 	        if bcDist > 145 and bcDist < 155 and inAngle(e.angle) == true then
 	        	table.remove(ebullets,i)
-	        	shield.secShield = shield.secShield + e.damage
+	        	shield.secShield = shield.secShield + e.damage/2
 	        elseif shield.secShield > 0 and bcDist > 145 and bcDist < 155 then
 	        	table.remove(ebullets,i)
 	        	shield.secShield = shield.secShield - e.damage
