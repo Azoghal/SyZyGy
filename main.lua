@@ -6,6 +6,7 @@ require 'enemy'
 require 'shield'
 require 'enemyTurret'
 require 'journeys'
+require 'menu'
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest','nearest')
@@ -24,6 +25,7 @@ function love.load()
 	bulletInfo = {}
 	journeyOn = false
 	joI = 1
+	menu = mainMenu:new()
 
 	function enemyCleanup()
 		for i,e in ipairs(enemies) do 
@@ -172,13 +174,10 @@ function love.load()
 end
 
 function love.update(dt)
+	menu:button1click()
 	enemyCleanup()
 	bulletCleanup()
 	ecd = ecd -1
-	if love.keyboard.isDown("o") and journeyOn == false then
-		bean = journeyA:new()
-		journeyOn = true
-	end
 	if journeyOn then
 		bean:runJourney()
 	end
@@ -247,6 +246,8 @@ function love.draw()
 		turret:draw()
 		pdraw()
 		shield:draw()
+	else
+		menu:draw()
 	end
 
 end
