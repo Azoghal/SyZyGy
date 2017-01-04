@@ -5,7 +5,7 @@ function shield:initialize()
 	self.centerX = width/2
 	self.centerY = height/2
 	self.secShield = 100
-	
+	self.colour = {0,135,200,self.secShield}
 	self.angle = 225
 	self.angle2 = 315
 	self.pointA = {}

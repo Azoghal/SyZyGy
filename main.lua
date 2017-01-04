@@ -12,8 +12,8 @@ function love.load()
 	love.graphics.setDefaultFilter('nearest','nearest')
 	cursor = love.mouse.newCursor("Syzygy cursor.png")
 	love.mouse.setCursor(cursor)
-	
 	enemies = {}
+	buttons = {}
 	ecd = 50
 	stars = {}
 	bullets = {}
@@ -176,7 +176,6 @@ function love.load()
 end
 
 function love.update(dt)
-	menu:button1click()
 	enemyCleanup()
 	bulletCleanup()
 	ecd = ecd -1
@@ -203,10 +202,12 @@ function love.update(dt)
 		if love.mouse.isDown(1) and turret.cd <= 0 then
 			turret:shoot()
 		end
+	else
+		for i,e in ipairs(buttons) do
+			e:click()
+		end
 	end
 	bulletmove()
-
-	
 
 	psystem:update(dt)
 	psystem2:update(dt)
@@ -250,6 +251,10 @@ function love.draw()
 		shield:draw()
 	else
 		menu:draw()
+		for i,e in ipairs(buttons) do
+			e:draw()
+		end
+
 	end
 
 end
