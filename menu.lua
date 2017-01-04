@@ -40,8 +40,7 @@ function button:click()
 end
 
 function button:draw()
-	love.graphics.setColor(150,150,150,100)
-	love.graphics.rectangle("fill",self.x,self.y,self.width,self.height)
+	love.graphics.draw(self.image,self.x,self.y)
 	love.graphics.reset()
 	love.graphics.print(self.text,self.x + 40,self.y + 45)
 end
@@ -69,8 +68,7 @@ function buttonEndless:click()
 end
 
 function buttonEndless:draw()
-	love.graphics.setColor(150,150,150,100)
-	love.graphics.rectangle("fill",self.x,self.y,self.width,self.height)
+	love.graphics.draw(self.image,self.x,self.y)
 	love.graphics.reset()
 	love.graphics.print(self.text,self.x + 40,self.y + 45)
 end
