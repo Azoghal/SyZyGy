@@ -25,6 +25,14 @@ function love.load()
 	centery = height/2
 	width2,height2 = width/2,height/2
 	bulletInfo = {}
+	function buttonsStD()
+		bean = journeyList[joI]:new()
+		journeyOn = true
+	end
+	function buttonsEnd()
+		bean = journeyEndless:new()
+		journeyOn = true
+	end
 	journeyOn = false
 	joI = 1
 	menu = mainMenu:new()
