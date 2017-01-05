@@ -13,7 +13,7 @@ end
 
 function shipA:dmg()
 	for i,e in ipairs(ebullets) do
-		if CheckCollision(e.x,e.y,1,1,self.x,self.y,100,150) == true then
+		if CheckCollision(e.x,e.y,1,1,self.x-50,self.y-75,100,150) == true then
 			self.health = self.health - e.damage
 			table.remove(ebullets,i)
 		end

@@ -186,6 +186,7 @@ end
 function love.update(dt)
 	enemyCleanup()
 	bulletCleanup()
+
 	ecd = ecd -1
 	if journeyOn then
 		bean:runJourney()
@@ -207,6 +208,7 @@ function love.update(dt)
 	end
 	if journeyOn == true then
 		shield:points()
+		ship:dmg()
 		if love.mouse.isDown(1) and turret.cd <= 0 then
 			turret:shoot()
 		end

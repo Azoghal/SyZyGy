@@ -10,7 +10,7 @@ function enemyA:initialize()
 	self.spawnbool = false
 	self.height = 148
 	self.width = 100
-	self.cd = 100
+	self.cd = math.random(1,100)
 	if enemies[1] then
 		while self.spawnbool2 == false do
 			self.yFinal = math.random(50,height-150)
