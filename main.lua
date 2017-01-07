@@ -15,6 +15,7 @@ function love.load()
 	enemies = {}
 	buttons = {}
 	ecd = 50
+	mcd = 50
 	stars = {}
 	bullets = {}
 	ebullets = {}
@@ -26,16 +27,31 @@ function love.load()
 	width2,height2 = width/2,height/2
 	bulletInfo = {}
 	function buttonsStD()
-		bean = journeyList[joI]:new()
-		journeyOn = true
+		if mcd <= 0 then
+			bean = journeyList[joI]:new()
+			journeyOn = true
+			mcd = 50
+		end
 	end
 	function buttonsEnd()
-		bean = journeyEndless:new()
-		journeyOn = true
+		if mcd <= 0 then
+			bean = journeyEndless:new()
+			journeyOn = true
+			mcd = 50
+		end
+	end
+	function buttonsJ()
+		if mcd <= 0 then
+			journeyOn = false
+			menu.on = false
+			jmenu.on = true
+			mcd = 50
+		end
 	end
 	journeyOn = false
 	joI = 1
 	menu = mainMenu:new()
+	jmenu = jMenu:new()
 
 	function enemyCleanup()
 		for i,e in ipairs(enemies) do 
@@ -186,7 +202,7 @@ end
 function love.update(dt)
 	enemyCleanup()
 	bulletCleanup()
-
+	mcd = mcd-1
 	ecd = ecd -1
 	if journeyOn then
 		bean:runJourney()
@@ -234,8 +250,6 @@ function love.update(dt)
 end
 
 function love.draw()
-
-	
 	for i,e in ipairs(stars) do
 		love.graphics.setColor(e.color)
 		love.graphics.circle("fill",e.x,e.y,e.sz)
@@ -261,9 +275,7 @@ function love.draw()
 		shield:draw()
 	else
 		menu:draw()
-		for i,e in ipairs(buttons) do
-			e:draw()
-		end
+		jmenu:draw()
 
 	end
 

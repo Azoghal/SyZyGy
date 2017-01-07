@@ -5,15 +5,49 @@ mainMenu = class("menu")
 function mainMenu:initialize()
 	self.on = true
 	self.title = {}
+	self.buttons = {}
+	self.title.Img = love.graphics.newImage("Title.png")
+	self.title.x = width2-264
+	self.title.y = 100
+	butto = button:new(width2-100,300,200,100,"Journeys","button.png",buttonsJ)
+	butto2 = button:new(width2-100,450,200,100,"Endless","button.png",buttonsEnd)
+	table.insert(self.buttons,butto)
+	table.insert(self.buttons,butto2)
+end
+
+function mainMenu:draw()
+	if self.on == true then
+		love.graphics.draw(self.title.Img,self.title.x,self.title.y,0,2,2)
+		for i,e in ipairs(self.buttons) do
+			love.graphics.draw(e.image,e.x,e.y)
+			love.graphics.print(e.text,e.x + 40,e.y + 45)
+			e:click()
+		end
+	end
+end
+
+jMenu  = class("menu")
+
+function jMenu:initialize()
+	self.on = false
+	self.title = {}
+	self.buttons = {}
 	self.title.Img = love.graphics.newImage("Title.png")
 	self.title.x = width2-264
 	self.title.y = 100
 	butto = button:new(width2-100,300,200,100,"Sodom to Gomorrah","button.png",buttonsStD)
-	butto2 = button:new(width2-100,500,200,100,"Endless","button.png",buttonsEnd)
+	table.insert(self.buttons,butto)
 end
 
-function mainMenu:draw()
-	love.graphics.draw(self.title.Img,self.title.x,self.title.y,0,2,2)
+function jMenu:draw()
+	if self.on == true then
+		love.graphics.draw(self.title.Img,self.title.x,self.title.y,0,2,2)
+		for i,e in ipairs(self.buttons) do
+			love.graphics.draw(e.image,e.x,e.y)
+			love.graphics.print(e.text,e.x + 40,e.y + 45)
+			e:click()
+		end
+	end
 end
 
 
@@ -27,7 +61,6 @@ function button:initialize(x,y,width,height,text,image,onclick)
 	self.text = text
 	self.image = love.graphics.newImage("button.png")
 	self.onclick = onclick
-	table.insert(buttons,self)
 end
 function button:click()
 	if journeyOn == false and love.mouse.isDown(1) then
@@ -38,9 +71,4 @@ function button:click()
 	end
 end
 
-function button:draw()
-	love.graphics.draw(self.image,self.x,self.y)
-	love.graphics.reset()
-	love.graphics.print(self.text,self.x + 40,self.y + 45)
-end
 
