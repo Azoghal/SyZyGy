@@ -271,7 +271,7 @@ function love.draw()
 		pdraw()
 		shield:draw()
 		love.graphics.setColor(0,255,0)
-		for i=0,math.floor(shield.secShield/10),1 do 
+		for i=0,math.floor(ship.health/200),1 do 
 			love.graphics.rectangle("fill",40,i*20+100,3,15)
 		end
 		love.graphics.reset()

@@ -49,7 +49,7 @@ end
 
 function turretA:shoot()
 	mx,my = love.mouse.getPosition()
-	self.anger = math.atan2(self.y - my, self.x - mx)+math.pi
+	self.anger = math.atan2(self.y - my, self.x - mx)+math.pi+(math.random(-0.5,0.5,0.1)/10)
 	bullet = {}
 	bullet.image = love.graphics.newImage("laser2.png")
 	bullet.damage = 10
