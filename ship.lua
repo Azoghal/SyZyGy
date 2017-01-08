@@ -1,7 +1,7 @@
 shipA = class('playerShip')
 
 function shipA:initialize()
-	self.health = 1000
+	self.health = 3000
 	self.x = width/2
 	self.y = height/2
 	self.image = love.graphics.newImage("Combat Shuttle Mk1.png")

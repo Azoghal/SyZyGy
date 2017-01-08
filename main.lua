@@ -15,13 +15,13 @@ function love.load()
 	enemies = {}
 	buttons = {}
 	ecd = 50
-	mcd = 50
+	mcd = 0
 	stars = {}
 	bullets = {}
 	ebullets = {}
 	eTurrets= {}
 	width,height = love.window.getDesktopDimensions(1)
-	love.window.setMode(width,height,{fullscreen=true})  -- 
+	love.window.setMode(width,height,{fullscreen=true})  --  
 	centerx = width/2
 	centery = height/2
 	width2,height2 = width/2,height/2
@@ -30,14 +30,16 @@ function love.load()
 		if mcd <= 0 then
 			bean = journeyList[joI]:new()
 			journeyOn = true
-			mcd = 50
+			mcd = 25
+			ship.secShield = 150
 		end
 	end
 	function buttonsEnd()
 		if mcd <= 0 then
 			bean = journeyEndless:new()
 			journeyOn = true
-			mcd = 50
+			mcd = 25
+			ship.secShield = 150
 		end
 	end
 	function buttonsJ()
@@ -45,7 +47,8 @@ function love.load()
 			journeyOn = false
 			menu.on = false
 			jmenu.on = true
-			mcd = 50
+			mcd = 25
+
 		end
 	end
 	journeyOn = false
@@ -125,7 +128,7 @@ function love.load()
 	        bulletInfo[1] = e.angle
 	        if bcDist > 145 and bcDist < 155 and inAngle(e.angle) == true then
 	        	table.remove(ebullets,i)
-	        	shield.secShield = shield.secShield + e.damage/2
+	        	shield.secShield = shield.secShield + e.damage*0.75
 	        elseif shield.secShield > 0 and bcDist > 145 and bcDist < 155 then
 	        	table.remove(ebullets,i)
 	        	shield.secShield = shield.secShield - e.damage
@@ -179,9 +182,6 @@ function love.load()
 		psystem4:setColors(255, 255, 255, 255, 255, 255, 255, 0) 
 
 	end
-
-	
-	
 	function pdraw()
 		love.graphics.draw(psystem, width2-35,height2+65)  -- centery = 540 centerx = 960   -35,+65
 		love.graphics.draw(psystem, width2+35,height2+65)		-- +35,+65
@@ -193,13 +193,12 @@ function love.load()
 		love.graphics.draw(psystem4,width2-5 ,height2+67)	-- -5,+67
 		love.graphics.draw(psystem4,width2+5 ,height2+67)	-- +5,+67
 	end
-
 	starMake()
 	p()
-
 end
 
 function love.update(dt)
+	print(math.random(1,2))
 	enemyCleanup()
 	bulletCleanup()
 	mcd = mcd-1
@@ -207,13 +206,11 @@ function love.update(dt)
 	if journeyOn then
 		bean:runJourney()
 	end
-	
 	for i,e in ipairs(eTurrets) do
 		if e.cd <= 0 then
 			e:shoot()
 		end
 		e:draw()
-		
 	end
 	if love.keyboard.isDown("escape") then
 		love.event.quit()
@@ -234,19 +231,15 @@ function love.update(dt)
 		end
 	end
 	bulletmove()
-
 	psystem:update(dt)
 	psystem2:update(dt)
 	psystem3:update(dt)
 	psystem4:update(dt)
-	
 	for i,e in ipairs(enemies) do
 		e:ambientMove()
 		e:enemyMove()
 		e:recieveDamage()
 	end
-
-
 end
 
 function love.draw()
@@ -259,7 +252,7 @@ function love.draw()
 		e:draw()
 	end
 	for i,e in ipairs(ebullets) do
-		love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
+		love.graphics.draw(e.image,e.x,e.y,e.anger,e.scale,e.scale,3,5)
 	end
 	for i,e in ipairs(eTurrets) do
 		e:draw()
@@ -267,16 +260,23 @@ function love.draw()
 	if journeyOn == true then
 		love.graphics.print(tostring(bean.hTimer))
 		love.graphics.draw(ship.image,ship.x,ship.y,0,1,1,50,75)
+		
+		love.graphics.reset()
 		for i,e in ipairs(bullets) do
-			love.graphics.draw(e.image,e.x,e.y,e.anger,2,2,3,5)
+			love.graphics.draw(e.image,e.x,e.y,e.anger,e.scale,e.scale,3,5)
 		end
+		
+		
 		turret:draw()
 		pdraw()
 		shield:draw()
+		love.graphics.setColor(0,255,0)
+		for i=0,math.floor(shield.secShield/10),1 do 
+			love.graphics.rectangle("fill",40,i*20+100,3,15)
+		end
+		love.graphics.reset()
 	else
 		menu:draw()
 		jmenu:draw()
-
 	end
-
 end

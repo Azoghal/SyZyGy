@@ -8,15 +8,19 @@ function enemyA:initialize()
 	self.health = 100
 	self.spawnbool2 = false
 	self.spawnbool = false
-	self.height = 148
-	self.width = 100
+	self.height = 89
+	self.width = 103
+	self.turrets = {1}
+	self.xOffsets = {10}
+	self.yOffsets = {28}
 	self.cd = math.random(1,100)
+	self.CD = 200
 	if enemies[1] then
 		while self.spawnbool2 == false do
 			self.yFinal = math.random(50,height-150)
 			self.xFinal = math.random(50,width-100)
 			for i,e in ipairs(enemies) do
-				if CheckCollision(e.xFinal+50,e.yFinal+25,100,150,self.xFinal+50,self.yFinal+25,100,150) == true or CheckCollision(width2-150,height2-150,300,300,self.xFinal+50,self.yFinal+25,100,150) == true then
+				if CheckCollision(e.xFinal+50,e.yFinal+25,e.width,e.height,self.xFinal+50,self.yFinal+25,self.width,self.height) == true or CheckCollision(width2-150,height2-150,300,300,self.xFinal+50,self.yFinal+25,100,150) == true then
 					self.spawnbool = false
 					break
 				else
@@ -33,7 +37,6 @@ function enemyA:initialize()
 	end
 	
 		
-	self.CD = 10
 	if self.xFinal < width2 then
 		self.xSide = -1
 		self.x, self.y = -100,height2 -- left
@@ -74,7 +77,7 @@ end
 
 function enemyA:recieveDamage()
 	for i,e in ipairs(bullets) do 
-		if CheckCollision(e.x,e.y,1,1,self.x,self.y,100,90) == true then
+		if CheckCollision(e.x,e.y,1,1,self.x-self.width/2,self.y-self.height/2,self.width,self.height) == true then
 			self.health = self.health - e.damage
 			table.remove(bullets,i)
 		end
@@ -103,3 +106,23 @@ end
 
 enemyTypes[1] = enemyA
 --draws enemy ship
+
+enemyB = class('enemyShip',enemyA)
+
+function enemyB:initialize()
+	enemyA.initialize(self)
+	self.image = love.graphics.newImage("Police Defiant Class.png")
+	self.health = 200
+	self.spawnbool2 = false
+	self.spawnbool = false
+	self.height = 99
+	self.width = 133
+	self.turrets = {1,1}
+	self.xOffsets = {43,-26}
+	self.yOffsets = {27,27}
+	self.cd = math.random(100,200)	
+	self.CD = 400
+	table.insert(enemies,self)
+end
+
+enemyTypes[2] = enemyB

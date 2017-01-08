@@ -1,12 +1,15 @@
 enemyTurretA = class('enemyTurret')
 
-function enemyTurretA:initialize(parent)
-	self.x = y
-	self.y = x
+function enemyTurretA:initialize(parent,xoff,yoff)
+	self.x = 1
+	self.y = 1
+	self.xoff = xoff 
+	self.yoff = yoff
 	self.image = love.graphics.newImage("Laser Turret.png")
 	self.image2 = love.graphics.newImage("Laser Turret Base.png")
 	self.anger = 0
 	self.cd = parent.cd
+	self.CD = parent.CD
 	self.parent = parent
 	table.insert(eTurrets,self)
 end
@@ -19,7 +22,7 @@ function enemyTurretA:draw()
 			end
 		end
 	end
-	self.x,self.y = self.parent.x+70,self.parent.y+67
+	self.x,self.y = self.parent.x+self.xoff,self.parent.y+self.yoff
 	if ship then
 		mx, my = ship.x,ship.y
 		self.anger = math.atan2(self.y - my, self.x - mx)
@@ -35,11 +38,12 @@ function enemyTurretA:shoot()
 	bullet = {}
 	bullet.image = love.graphics.newImage("laser1.png")
 	bullet.damage = 50
+	bullet.scale = 2
 	bullet.anger = self.anger+(0.5*math.pi)
 	bullet.angle = 0
 	bullet.x,bullet.y = self.x,self.y
 	bullet.vx, bullet.vy = math.cos(self.anger)*10, math.sin(self.anger)*10
-	self.cd = 200
+	self.cd = self.cd + self.CD
 
 	table.insert(ebullets,bullet)
 end

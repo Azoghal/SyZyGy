@@ -1,3 +1,4 @@
+turretTypes = {}
 turretA = class('playerTurret')
 
 function turretA:initialize()
@@ -23,6 +24,7 @@ function turretA:shoot()
 	bullet = {}
 	bullet.image = love.graphics.newImage("laser1.png")
 	bullet.damage = 50
+	bullet.scale = 2
 	bullet.anger = self.anger+(0.5*math.pi)
 	bullet.angle = 0
 	bullet.x,bullet.y = self.x,self.y
@@ -32,3 +34,31 @@ function turretA:shoot()
 	table.insert(bullets,bullet)
 end
 
+turretTypes[1] = turretA
+
+turretB = class('playerTurret',turretA)
+
+function turretB:initialize()
+	self.x = ship.x
+	self.y = ship.y - 9
+	self.image = love.graphics.newImage("Neutrino Turret.png")
+	self.image2 = love.graphics.newImage("Neutrino Turret Base.png")
+	self.anger = 0
+	self.cd = 0
+end
+
+function turretA:shoot()
+	mx,my = love.mouse.getPosition()
+	self.anger = math.atan2(self.y - my, self.x - mx)+math.pi
+	bullet = {}
+	bullet.image = love.graphics.newImage("laser2.png")
+	bullet.damage = 10
+	bullet.scale = 1
+	bullet.anger = self.anger+(0.5*math.pi)
+	bullet.angle = 0
+	bullet.x,bullet.y = self.x,self.y
+	bullet.vx, bullet.vy = math.cos(self.anger)*10, math.sin(self.anger)*10
+	self.cd = 10
+
+	table.insert(bullets,bullet)
+end
